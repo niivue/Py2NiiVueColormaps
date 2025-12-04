@@ -16,11 +16,15 @@ def main():
 
     manifest_path = os.path.join(folder, "manifest.json")
 
-    # List *.json files, excluding manifest.json
+    # List *.json files (excluding manifest.json) and strip extension
     files = [
-        f for f in os.listdir(folder)
+        os.path.splitext(f)[0]
+        for f in os.listdir(folder)
         if f.endswith(".json") and f != "manifest.json"
     ]
+
+    # Sort alphabetically (this ensures manifest.json will contain sorted items)
+    files.sort()
 
     # Write manifest
     with open(manifest_path, "w") as f:
